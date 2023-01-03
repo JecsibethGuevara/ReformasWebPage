@@ -1,0 +1,66 @@
+<div class="panel">
+   
+    <div id="chat" class="clientChat" >
+        <div class="clientes">
+            <div class="cliente">
+                <h3>cliente Name</h3>
+            </div>
+        </div>
+        
+        <div class="chatApp">
+            <div id="msgBox" class="messages">    
+            
+            </div>
+            <div class="chat">
+                <form action="" class="chatForm">
+                    <input type="text" name="message" id="msg">
+                    <button type="submit">Send</button>
+                </form>    
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+   
+    <script src="/socket.io/socket.io.js"></script> 
+    <script>
+const socket = io(); 
+const btn = document.querySelector('#openChat')
+const chatDiv = document.querySelector('#chat')
+
+const chatForm = document.querySelector('.chatForm')
+
+        
+socket.on('message', message =>{
+    console.log(message)
+    outputMessage(message)
+})
+
+//Message submission
+
+chatForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    // get texto de usuario
+    const message = e.target.elements.msg.value;
+    //send texto al servidor
+    socket.emit('chatMessage', message)
+
+    
+    e.target.elements.msg.value = '';
+    e.target.elements.msg.value.focus;
+})
+
+//Message al DOM
+
+function outputMessage(mensaje){
+    const div = document.createElement('div')
+    div.classList.add('message')
+    div.innerHTML = `
+    <h4>${mensaje.username}</h4>
+                    <p>${mensaje.text}</p>
+                    <p class="time">${mensaje.time} </p>
+    `
+    document.querySelector('#msgBox').appendChild(div)
+}
+    </script>
