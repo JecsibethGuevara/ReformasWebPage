@@ -3,7 +3,9 @@
     <div id="chat" class="clientChat" >
         <div class="clientes">
             <div class="cliente">
-                <h3>cliente Name</h3>
+                {{#each rooms}}
+                    <a href='#' class="roomSwitch" id="{{room}}" > {{room}}</a>
+                {{/each}}
             </div>
         </div>
         
@@ -27,9 +29,31 @@
     <script>
 const socket = io(); 
 const btn = document.querySelector('#openChat')
-const chatDiv = document.querySelector('#chat')
+const chatDiv = document.querySelector('#chat');
 
 const chatForm = document.querySelector('.chatForm')
+let ison = false;
+const allRooms = document.querySelectorAll('.roomSwitch')
+const username = 'administrador'
+
+
+allRooms.forEach(room =>{
+    room.addEventListener('click', (e)=>{
+        let room = e.target.id;
+        console.log(room)
+        if(ison){
+            socket.emit('switchRoom',{room})
+            
+            console.log(ison, 'true')
+        }else{
+            socket.emit('joinRoom',{username, room} )
+            console.log(ison, 'false')
+            ison = true;
+        }
+        
+    })
+})
+
 
         
 socket.on('message', message =>{

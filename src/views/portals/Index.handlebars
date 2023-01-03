@@ -1,0 +1,31 @@
+<header>
+        <h1>Chat App</h1>
+    </header>
+    <section>
+        <button id='openChat' class="openChat">Chat with us!</button>
+        <div id="chat" class="closed">
+            
+            <div class="userRoom">
+                <h3>Write ur username and share with us our questions</h3>
+                <form action="" id="userRoom" method="post">
+                    <input type="text" name="username" id="username">
+                    <input type="submit" value="start" >
+                </form>
+            </div>
+
+            <div id="msgBox" class="messages">
+    
+            </div>
+
+            <div class="chat">
+                <form action="" class="chatForm">
+                    <input type="text" name="message" id="msg" disabled>
+                    <input type="submit" value="Send" id="sendBtn" disabled>
+                </form>
+                
+            </div>
+        </div>  
+    </section>
+   
+    <script src="/socket.io/socket.io.js"></script> 
+    <script src="app.js"></script>

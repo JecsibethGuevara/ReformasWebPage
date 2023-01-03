@@ -16,6 +16,16 @@ btn.addEventListener('click', () =>  {
         chatDiv.classList.add('closed')
     }
 })
+ 
+
+document.querySelector('#userRoom').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const username = e.target.elements.username.value;
+    const room = username 
+    socket.emit('joinRoom',{username, room} )
+    document.querySelector('#sendBtn').disabled = false;
+    document.querySelector('#msg').disabled = false;
+})
 
 socket.on('message', message =>{
     console.log(message)
